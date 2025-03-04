@@ -11,8 +11,8 @@ class Node{
 
 class List{
 	public:
-		Node *root;
-		int size;
+		Node *root = nullptr;
+		int size = 0;
 		void show();
 		void append(int);
 		void insert(int,int);
@@ -34,13 +34,16 @@ void List::insert(int d,int idx){
 	}
 	Node *current = root;
 	for(int i = 0; i < idx-1;i++){
+		if(current -> next == nullptr)return;
 		current = current->next;
 	}
 	n->next = current->next;
 	current->next = n;		
+	size++;
 }
 
 void List::show(){
+	if(root == nullptr)return;
 	Node *current = root;
 	cout << current->data << " ";	
 	while(current->next){
@@ -64,3 +67,22 @@ void List::append(int d){
 }
 
 //Write List::remove() here
+void List::remove(int index){
+    if (root == nullptr || index < 0 || index >= size) return; // ตรวจสอบขอบเขต
+    
+    Node *toDelete = nullptr;
+    if (index == 0) { // ลบโหนดแรก
+        toDelete = root;
+        root = root->next;
+    } else {
+        Node *current = root;
+        for (int i = 0; i < index - 1; i++) {
+            if (current->next == nullptr) return; // ป้องกันการเข้าถึง null pointer
+            current = current->next;
+        }
+        toDelete = current->next;
+        current->next = toDelete->next;
+    }
+    delete toDelete;
+    size--;
+}
