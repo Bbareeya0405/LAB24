@@ -86,3 +86,14 @@ void List::remove(int index){
     delete toDelete;
     size--;
 }
+
+int main() {
+    List myList;
+    myList.append(10);
+    myList.append(20);
+    myList.append(30);
+    myList.show();
+    myList.remove(1);
+    myList.show();
+    return 0;
+}
